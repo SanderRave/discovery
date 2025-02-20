@@ -12,8 +12,9 @@ const Footer = () => {
       <div>
         <h1 className="w-full text-3xl font-bold text-[#00df9a]">RAVE.</h1>
         <p className="py-4">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit
-          eius quaerat? Facere ipsa, earum nisi magni ipsam cumque est.
+          Lorem ipsum lust je ook een broodje poep?! Dolor sit, amet consectetur
+          adipisicing elit. Culpa sit eius quaerat? Facere ipsa, earum nisi
+          magni ipsam cumque est.
         </p>
         <div className="flex justify-between md:w-[75%] my-6">
           <FaFacebookSquare size={30} />
