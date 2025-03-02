@@ -1,11 +1,13 @@
-import Navbar from "./components/Navbar";
+import Morphology from "./components/Morphology";
+import Metamorphology from "./components/Metamorphology";
 import Hero from "./components/Hero";
 
 function App() {
   return (
     <div>
-      <Navbar />
+      <Morphology />
       <Hero />
+      <Metamorphology />
     </div>
   );
 }

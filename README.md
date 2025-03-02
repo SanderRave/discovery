@@ -1,36 +1,51 @@
-# 📌 Implementatie van Custom Fonts in TailwindCSS (Safiro)
+# Custom Font Integration with Tailwind & Vite
 
-Deze documentatie beschrijft hoe je het **Safiro** lettertype correct implementeert in een **Vite + TailwindCSS** project.
+This documentation provides step-by-step instructions on how to integrate the **Safiro** font into a Tailwind CSS and Vite project, ensuring it works across all browsers including **Chrome and Safari**.
 
----
+## 📂 Folder Structure
 
-## ✅ **1. Voeg de font-bestanden toe**
-
-Plaats de `.woff2` en `.woff` bestanden in de `public/fonts/` map:
+Ensure your project follows this structure:
 
 ```
-/your-vite-project/
+/custom-font
 │── public/
 │   ├── fonts/
 │   │   ├── safiro-regular-webfont.woff2
 │   │   ├── safiro-regular-webfont.woff
 │   │   ├── safiro-bold-webfont.woff2
 │   │   ├── safiro-bold-webfont.woff
-│   │   ├── ...
+│   │   ├── ... (other font variations)
 │── src/
-│── index.html
+│   ├── assets/styles/fonts.css
+│   ├── index.css
+│   ├── components/
+│   ├── App.jsx
+│   ├── main.jsx
 │── tailwind.config.js
-│── vite.config.js
-│── package.json
+│── index.html
 ```
 
 ---
 
-## ✅ **2. Definieer `@font-face` in CSS**
+## 🔧 1. Install Tailwind CSS
 
-Maak een bestand `src/assets/styles/fonts.css` en voeg toe:
+If not installed already, set up Tailwind CSS in your project:
+
+```bash
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+---
+
+## 🎨 2. Define Font Faces in `index.css`
+
+Modify **`src/index.css`** to include `@font-face` for Safiro:
 
 ```css
+@import "./assets/styles/fonts.css";
+@import "tailwindcss";
+
 @font-face {
   font-family: "Safiro";
   src: url("/fonts/safiro-regular-webfont.woff2") format("woff2"), url("/fonts/safiro-regular-webfont.woff")
@@ -41,36 +56,31 @@ Maak een bestand `src/assets/styles/fonts.css` en voeg toe:
 }
 
 @font-face {
-  font-family: "Safiro Bold";
+  font-family: "Safiro"; /* Use the same name for bold variant */
   src: url("/fonts/safiro-bold-webfont.woff2") format("woff2"), url("/fonts/safiro-bold-webfont.woff")
       format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
-```
 
-Importeer deze CSS in `src/main.css` of `index.css`:
-
-```css
-@import "./assets/styles/fonts.css";
+body {
+  background-color: #000300;
+}
 ```
 
 ---
 
-## ✅ **3. Configureer `tailwind.config.js`**
+## ⚙️ 3. Extend Tailwind Configuration
 
-Open `tailwind.config.js` en voeg de fonts toe:
+Update **`tailwind.config.js`** to register the custom font:
 
 ```js
-export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  safelist: ["font-safiro", "font-safiroBold"],
+module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        safiro: ["'Safiro'", "sans-serif"],
-        safiroBold: ["'Safiro Bold'", "sans-serif"],
+        safiro: ["Safiro", "sans-serif"],
       },
     },
   },
@@ -78,40 +88,45 @@ export default {
 };
 ```
 
-🚀 **Belangrijk:** De **`safelist`** dwingt Tailwind om deze classes niet weg te optimaliseren.
-
 ---
 
-## ✅ **4. Gebruik de custom fonts in je project**
+## 📌 4. Use the Font in Your Components
 
-Gebruik nu Tailwind classes in je HTML of JSX:
+Use **Tailwind CSS classes** to apply the font:
 
-```html
-<h1 class="font-safiro text-3xl">Dit is Safiro Regular</h1>
-<p class="font-safiroBold text-xl">Dit is Safiro Bold</p>
+```jsx
+<h1 className="text-5xl md:text-6xl lg:text-7xl font-safiro font-bold">This is Safiro Regular</h1>
+<p className="text-base md:text-lg lg:text-lg font-safiro">This is Safiro Paragraph</p>
 ```
 
 ---
 
-## ✅ **5. Herstart Tailwind en Vite**
+## 🚀 5. Restart Vite to Apply Changes
 
-Om de wijzigingen door te voeren:
+After updating the files, restart your Vite development server:
 
 ```bash
 npm run dev
 ```
 
-Als Tailwind de class niet toepast, wis dan de cache en herstart:
+---
 
-```bash
-rm -rf .next node_modules/.vite
-npm run dev
-```
+## 🛠️ 6. Debugging & Browser Compatibility
+
+If fonts are not loading correctly:
+
+- **Check if font files exist:**
+  ```bash
+  ls public/fonts/
+  ```
+- **Ensure `safiro-bold-webfont.woff2` loads in the Network tab (DevTools).**
+- **Use `font-weight: bold` instead of a separate font-family for bold text.**
+- **Force a hard refresh (`Cmd + Shift + R`) in Safari to clear cache.**
 
 ---
 
-## **🚀 Laatste Debug-checks**
+## ✅ Expected Output
 
-1. **Zie je `font-family: Safiro` in de Computed Styles-tab van DevTools?**
-2. **Zie je `font-safiro` in de gegenereerde CSS (`output.css`)?**
-3. **Werkt het font correct in de browser?**
+If everything is set up correctly, the text should render in **Safiro Regular and Bold** in all browsers.
+
+🎯 **Now your custom font is fully integrated with Tailwind & Vite!** 🚀
